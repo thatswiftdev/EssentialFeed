@@ -14,7 +14,7 @@ public struct FeedItem: Equatable {
   public let imageURL: URL
   
   public init(
-    id: UUID = UUID(),
+    id: UUID,
     description: String?,
     location: String?,
     imageURL: URL) {
