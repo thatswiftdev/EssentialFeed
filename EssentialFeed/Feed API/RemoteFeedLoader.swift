@@ -1,7 +1,4 @@
 //
-//  RemoteFeedLoader.swift
-//  EssentialFeed
-//
 //  Created by Bayu Kurniawan on 8/18/21.
 //
 
@@ -41,4 +38,7 @@ public final class RemoteFeedLoader {
       }
     }
   }
+  
+//  private func map(_ data: Data,from response: HTTPURLResponse) -> Result {
+//  }
 }
