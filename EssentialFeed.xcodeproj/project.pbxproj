@@ -41,7 +41,6 @@
 		4F91255F26C3B11600DFF116 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F91256426C3B11600DFF116 /* EssentialFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F91256B26C3B11600DFF116 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4FB081BA26D4B099002C1AC3 /* IDETemplateMacros.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = IDETemplateMacros.plist; path = ../../Desktop/IDETemplateMacros.plist; sourceTree = "<group>"; };
 		4FFF56A626D1067800584CBB /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		4FFF56A826D106ED00584CBB /* FeedItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,7 +95,6 @@
 		4F91255126C3B11600DFF116 = {
 			isa = PBXGroup;
 			children = (
-				4FB081BA26D4B099002C1AC3 /* IDETemplateMacros.plist */,
 				4F91255D26C3B11600DFF116 /* EssentialFeed */,
 				4F91256826C3B11600DFF116 /* EssentialFeedTests */,
 				4F91255C26C3B11600DFF116 /* Products */,

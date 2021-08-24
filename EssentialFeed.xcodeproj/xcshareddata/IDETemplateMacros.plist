@@ -3,6 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>FILEHEADER</key>
-	<string>Created for ___PROJECTNAME___</string>
+	<string> Created for ___PROJECTNAME___.
+// Copyright © ___YEAR___. All rights reserved.</string>
 </dict>
 </plist>
