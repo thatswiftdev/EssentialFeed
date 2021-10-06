@@ -9,7 +9,7 @@ jobs:
 
     runs-on: macOS-11
 
-    timeout: 10
+    timeout-minutes: 10
 
     steps:
     - uses: actions/checkout@v2
