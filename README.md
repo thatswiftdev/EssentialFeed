@@ -1,6 +1,6 @@
 # EssentialFeed
 
-[![Build Status](https://app.travis-ci.com/overheardswift/EssentialFeed.svg?token=DSxpGzjJpSBbzdhMcekG&branch=main)](https://app.travis-ci.com/overheardswift/EssentialFeed)
+[![CI](https://github.com/overheardswift/EssentialFeed/actions/workflows/CI.yml/badge.svg?branch=main&event=push)](https://github.com/overheardswift/EssentialFeed/actions/workflows/CI.yml)
 
 ## Image Feed Feature Specs
 
