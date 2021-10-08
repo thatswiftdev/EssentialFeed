@@ -6,10 +6,22 @@ import EssentialFeed
 
 class EssentialFeedCacheIntegrationTests: XCTestCase {
   
+  override func setUp() {
+    super.setUp()
+    
+    setupEmptyStoreState()
+  }
+  
+  override func tearDown() {
+    super.tearDown()
+    
+    undoStoreSideEffects()
+  }
+  
   func test_load_deliversNoItemsOnEmptyCache() {
     let sut = makeSUT()
     
-    let exp = expectation(description: "Wait for load completion")
+    let exp = expectation(description: "Wait for load completion.")
     sut.load { result in
       switch result {
       case let .success(feedImage):
@@ -22,6 +34,32 @@ class EssentialFeedCacheIntegrationTests: XCTestCase {
       exp.fulfill()
     }
     wait(for: [exp], timeout: 1.0)
+  }
+  
+  func test_load_deliversItemsSavedOnASeparateIntance() {
+    let sutToPerformSave = makeSUT()
+    let sutToPerformLoad = makeSUT()
+    let feed = uniqueImageFeed().models
+    
+    let saveExp = expectation(description: "Wait for save completion.")
+    sutToPerformSave.save(feed) { saveError in
+      XCTAssertNil(saveError, "Expected to save feed successfully.")
+      saveExp.fulfill()
+    }
+    wait(for: [saveExp], timeout: 1.0)
+    
+    let loadExp = expectation(description: "Wait for load completion.")
+    sutToPerformLoad.load { result in
+      switch result {
+      case let .success(feedImage):
+        XCTAssertEqual(feedImage, feed)
+        
+      case let .failure(error):
+        XCTFail("Expected to save feed successfully, but got \(error) instead.")
+      }
+      loadExp.fulfill()
+    }
+    wait(for: [loadExp], timeout: 1.0)
   }
   
   // MARK: -  Helpers
@@ -41,6 +79,18 @@ class EssentialFeedCacheIntegrationTests: XCTestCase {
   
   private func cachesDirectory() -> URL {
     return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+  }
+  
+  private func setupEmptyStoreState() {
+    deleteStoreArtifacts()
+  }
+  
+  private func undoStoreSideEffects() {
+    deleteStoreArtifacts()
+  }
+  
+  private func deleteStoreArtifacts() {
+    try? FileManager.default.removeItem(at: testSpecificStoreURL())
   }
 
 }
