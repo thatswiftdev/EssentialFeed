@@ -5,12 +5,29 @@ import CoreData
 
 public final class CoreDataFeedStore: FeedStore {
   
+  private static let modelName = "FeedStore"
+  private static let model = NSManagedObjectModel.with(name: modelName, in: Bundle(for: CoreDataFeedStore.self))
+  
   private let container: NSPersistentContainer
   private let context: NSManagedObjectContext
   
-  public init(storeURL: URL, bundle: Bundle = .main) throws {
-    container = try NSPersistentContainer.load(modelName: "FeedStore", url: storeURL, in: bundle)
-    context = container.newBackgroundContext()
+  enum StoreError: Swift.Error {
+    case modelNotFound
+    case failedToLoadPersistentStore(Swift.Error)
+  }
+  
+  public init(storeURL: URL) throws {
+    
+    guard let model = CoreDataFeedStore.model else {
+      throw StoreError.modelNotFound
+    }
+    
+    do {
+      container = try NSPersistentContainer.load(name: CoreDataFeedStore.modelName, model: model, url: storeURL)
+      context = container.newBackgroundContext()
+    } catch {
+      throw StoreError.failedToLoadPersistentStore(error)
+    }
   }
   
   public func deleteCacheFeed(completion: @escaping DeletionCompletion) {
@@ -57,5 +74,16 @@ public final class CoreDataFeedStore: FeedStore {
         completion(.failure(error))
       }
     }
+  }
+  
+  private func cleanUpReferencesoPersistentStores() {
+    context.performAndWait {
+      let coordinator = self.container.persistentStoreCoordinator
+      try? coordinator.persistentStores.forEach(coordinator.remove)
+    }
+  }
+  
+  deinit {
+    cleanUpReferencesoPersistentStores()
   }
 }
