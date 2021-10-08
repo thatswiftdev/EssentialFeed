@@ -21,19 +21,7 @@ class EssentialFeedCacheIntegrationTests: XCTestCase {
   func test_load_deliversNoItemsOnEmptyCache() {
     let sut = makeSUT()
     
-    let exp = expectation(description: "Wait for load completion.")
-    sut.load { result in
-      switch result {
-      case let .success(feedImage):
-        XCTAssertEqual(feedImage, [], "Expected empty feed image.")
-      
-      case let .failure(error):
-        XCTFail("Expected empty feed image, got \(error) instead.")
-      }
-      
-      exp.fulfill()
-    }
-    wait(for: [exp], timeout: 1.0)
+    expect(sut, toLoad: [])
   }
   
   func test_load_deliversItemsSavedOnASeparateIntance() {
@@ -73,6 +61,22 @@ class EssentialFeedCacheIntegrationTests: XCTestCase {
     return sut
   }
   
+  private func expect(_ sut: LocalFeedLoader, toLoad feedImage: [FeedImage]) {
+    let exp = expectation(description: "Wait for load completion.")
+    sut.load { result in
+      switch result {
+      case let .success(feedImage):
+        XCTAssertEqual(feedImage, feedImage, "Expected empty feed image.")
+      
+      case let .failure(error):
+        XCTFail("Expected empty feed image, got \(error) instead.")
+      }
+      
+      exp.fulfill()
+    }
+    wait(for: [exp], timeout: 1.0)
+  }
+  
   private func testSpecificStoreURL() -> URL {
     return cachesDirectory().appendingPathComponent("\(type(of: self)).store")
   }
@@ -92,5 +96,6 @@ class EssentialFeedCacheIntegrationTests: XCTestCase {
   private func deleteStoreArtifacts() {
     try? FileManager.default.removeItem(at: testSpecificStoreURL())
   }
+  
 
 }
