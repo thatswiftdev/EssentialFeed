@@ -87,7 +87,7 @@ class EssentialFeedCacheIntegrationTests: XCTestCase {
   }
 
   private func cachesDirectory() -> URL {
-    return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
   }
 
   private func setupEmptyStoreState() {
