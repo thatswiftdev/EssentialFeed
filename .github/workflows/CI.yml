@@ -1,10 +1,8 @@
-name: CI
+name: CI-CodableFeedStore
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ merge-to-codable-feedstore ]
 
 jobs:
   build-and-test:
