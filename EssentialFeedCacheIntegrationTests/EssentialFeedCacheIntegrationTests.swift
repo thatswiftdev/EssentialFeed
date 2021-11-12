@@ -31,7 +31,7 @@ class EssentialFeedCacheIntegrationTests: XCTestCase {
 
     save(feed, with: sutToPerformSave)
 
-    expect(sutToPerformLoad, toLoad: [])
+    expect(sutToPerformLoad, toLoad: feed)
   }
 
   func test_save_overridesItemsSavedOnASeparateInstance() {
@@ -61,8 +61,8 @@ class EssentialFeedCacheIntegrationTests: XCTestCase {
     let exp = expectation(description: "Wait for load completion.")
     sut.load { result in
       switch result {
-      case let .success(feedImage):
-        XCTAssertEqual(feedImage, feedImage, "Expected empty feed image.", file: file, line: line)
+      case let .success(receivedFeedImage):
+        XCTAssertEqual(receivedFeedImage, feedImage, "Expected empty feed image.", file: file, line: line)
 
       case let .failure(error):
         XCTFail("Expected empty feed image, got \(error) instead.", file: file, line: line)
