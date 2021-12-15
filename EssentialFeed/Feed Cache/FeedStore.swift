@@ -7,10 +7,10 @@ public typealias CacheFeed = (feed: [LocalFeedImage], timestamp: Date)
 
 public protocol FeedStore {
   
-  typealias DeletionResult = Error?
+  typealias DeletionResult = Result<Void,Error>
   typealias DeletionCompletion = (DeletionResult) -> Void
   
-  typealias InsertionResult = Error?
+  typealias InsertionResult = Result<Void,Error>
   typealias InsertionCompletion = (DeletionResult) -> Void
   
   typealias RetrievalResult = Swift.Result<CacheFeed?, Error>
