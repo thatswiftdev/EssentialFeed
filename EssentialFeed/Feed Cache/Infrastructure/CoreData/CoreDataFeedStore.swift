@@ -34,28 +34,22 @@ public final class CoreDataFeedStore: FeedStore {
     let context = self.context
     
     context.perform {
-      do {
+      completion(Result {
         try ManagedCache.find(in: context).map(context.delete).map(context.save)
-        completion(.success(()))
-      } catch {
-        completion(.failure(error))
-      }
+      })
     }
   }
   
   public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
     let context = self.context
     context.perform {
-      do {
+      completion(Result {
         let managedCache = try ManagedCache.newUniqueInstance(in: context)
         managedCache.timestamp = timestamp
         managedCache.feed = ManagedFeedImage.images(from: feed, in: context)
         
         try context.save()
-        completion(.success(()))
-      } catch {
-        completion(.failure(error))
-      }
+      })
     }
   }
   
@@ -63,16 +57,11 @@ public final class CoreDataFeedStore: FeedStore {
     let context = self.context
     
     context.perform {
-      do {
-        if let cache = try ManagedCache.find(in: context) {
-          completion(.success(CacheFeed(feed: cache.localFeed, timestamp: cache.timestamp)))
-        } else {
-          completion(.success(.none))
+      completion(Result {
+        try ManagedCache.find(in: context).map {
+          return CacheFeed(feed: $0.localFeed, timestamp: $0.timestamp)
         }
-        
-      } catch {
-        completion(.failure(error))
-      }
+      })
     }
   }
   
