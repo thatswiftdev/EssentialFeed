@@ -1,6 +1,7 @@
 # EssentialFeed
 
-[![CI](https://github.com/overheardswift/EssentialFeed/actions/workflows/CI.yml/badge.svg?branch=main&event=push)](https://github.com/overheardswift/EssentialFeed/actions/workflows/CI.yml)
+[![CI-iOS](https://github.com/overheardswift/EssentialFeed/actions/workflows/CI-iOS.yml/badge.svg?branch=main)](https://github.com/overheardswift/EssentialFeed/actions/workflows/CI-iOS.yml)
+[![CI-macOS](https://github.com/overheardswift/EssentialFeed/actions/workflows/CI-macOS.yml/badge.svg?branch=main)](https://github.com/overheardswift/EssentialFeed/actions/workflows/CI-macOS.yml)
 
 ## Image Feed Feature Specs
 
